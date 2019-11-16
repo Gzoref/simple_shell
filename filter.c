@@ -1,4 +1,4 @@
-#include "local.h"
+#include "shell.h"
 
 int function_filter(char **commands)
 {
