@@ -1,7 +1,7 @@
 #include "shell.h"
 
 
-int main(int argc, char **argv, char **envs)
+int main(int argc, char **argv, char **env)
 {
 	char *buffer = NULL;
 	char **args;
@@ -11,7 +11,7 @@ int main(int argc, char **argv, char **envs)
 		write(STDOUT_FILENO, "$ ", 2);
 		buffer = read_line();
 		args = parse_line(buffer);
-		value = exec_cmd(args);
+		value = function_filter(args, env);
 		free(buffer);
 		free(args);
 	}
