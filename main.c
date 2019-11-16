@@ -3,17 +3,17 @@
 
 int main(int argc, char **argv, char **envs)
 {
-	char *commandLine = NULL, *token;
-	size_t readLength = 0;
-	ssize_t characters;
-	pid_t pid;
-	int index = 0;
-
+	char *buffer = NULL;
+	char **args;
+	int value = 0;
 	do
 	{
 		write(STDOUT_FILENO, "$ ", 2);
+		buffer = read_line();
+		args = parse_line(buffer);
+		value = exec_cmd(args);
+		free(buffer);
+		free(args);
 	}
-	while((commandLine = read_line(commandLine)));
-	token = strtok(commandLine, " ");
-	pid = fork();
+	while(value > 0);	
 }
