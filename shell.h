@@ -8,6 +8,7 @@ typedef struct format
 } cmd_fo;
 
 #define BUFFERSIZE 1024
+
 #define DELIMINATOR " "
 
 #include <stdlib.h>
