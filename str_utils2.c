@@ -1,6 +1,30 @@
 #include "shell.h"
 
 /**
+ * _getchar - Gets a character
+ *
+ * Return: Character
+ */
+
+int _getchar(void)
+{
+	char buffer[BUFFERSIZE];
+	char *buff = buffer;
+	int index = 0;
+
+	if (index == 0)
+	{
+		index = read(0, buffer, 1);
+	}
+	if (index-- >= 0)
+	{
+		return (*buff++);
+	}
+	return (EOF);
+}
+
+
+/**
  * _atoi - Convert a string to an integer.
  *
  * @s: input string
@@ -33,27 +57,25 @@ int  _atoi(char *s)
 }
 
 
-
 /**
- * *_memset - Fills memory with a constant byte
+ * word_counter - Counts words
  *
- * @s: pointer
+ * @str: char pointer
  *
- * @b: char
- *
- * @n: unsigned int
- *
- *Return: s
+ * Return: Integer
  */
 
-char *_memset(char *s, char b, unsigned int n)
-{
-	unsigned int index;
 
-	for (index = 0; n > 0; index++)
+int word_counter(char *str)
+{
+	int count1, count2 = 0;
+
+	for (count1 = 0; str[count1] != '\0'; count1++)
 	{
-		s[index] = b;
-		n -= 1;
+		if (str[count1] != ' ' && (str[count1 + 1] == ' ' || str[count1 + 1] == '\0'))
+		{
+			count2++;
+		}
 	}
-	return (s);
+	return (count1);
 }
