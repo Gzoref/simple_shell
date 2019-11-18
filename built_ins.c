@@ -1,7 +1,6 @@
 #include "shell.h"
 
-int call_exit (char **name)
+void call_exit (void)
 {
-	printf("Went through exit %s", *name);
-	return (0);
+	exit(EXIT_SUCCESS);
 }
