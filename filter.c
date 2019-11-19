@@ -23,19 +23,23 @@ int function_filter(char **commands)
 
 	while (builtin[i] != NULL)
 	{
+		printf("Got here 1\n");
 		if (_strcmp(builtin[i], commands[0]) == 0)
 		{
+			printf("Got here 2\n");
 			switch (i)
 			{
 			case 0:
+				printf("Got here 3\n");
 				call_exit();
 				break;
+			case 1:
+				call_cd();
+			default:
+				return (exec_cmd(commands, __environ));
 			}
 		}
-		else
-		{
-			i++;
-		}
+		i++;
 	}
-	return (exec_cmd(commands, __environ));
+	return (1);
 }
