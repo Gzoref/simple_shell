@@ -20,22 +20,21 @@ char **parse_line(char *line)
 
 	if (!tokens)
 	{
-		perror("hsh: allocation error\n");
+		perror("hsh");
 		exit(EXIT_FAILURE);
 	}
-
 	token = strtok(line, DELIMINATOR);
 
 	while (token != NULL)
 	{
 		tokens[location] = token;
-		location++;
-	
-
+		token = strtok(NULL, DELIMINATOR);
+		location++;	
+	}
 		if (location >= buffer_size)
 		{
 			buffer_size += BUFFERSIZE;
-			tokens = realloc(tokens, buffer_size * sizeof(char *));
+			tokens = _realloc(tokens, BUFFERSIZE, buffer_size * sizeof(char *));
 
 			if (!tokens)
 			{
@@ -47,7 +46,7 @@ char **parse_line(char *line)
 			token = strtok(NULL, DELIMINATOR);
 		}
 
-	}
+	
 	tokens[location] = NULL;
 
 	return (tokens);
