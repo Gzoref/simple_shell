@@ -20,9 +20,9 @@ extern char **environ;
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int call_cd (char *str);
-void call_exit (void);
-int call_env (char *str);
+int call_cd (char *arg);
+int call_exit (char *arg);
+int call_env (char *arg);
 
 char **parse_line(char *line);
 
