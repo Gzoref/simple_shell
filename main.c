@@ -12,7 +12,7 @@ int main(int argc, char **argv, char **env)
 		write(STDOUT_FILENO, "$ ", 2);
 		buffer = read_line();
 		args = parse_line(buffer);
-		value = function_filter(args);
+		value = function_filter(args, env);
 		free(buffer);
 		free(args);
 	}
