@@ -18,7 +18,6 @@ int exec_cmd(char **str, char **env)
 	
 	i = find_path(env);
 	path = strcpy(path, env[i]);
-	printf("\nPATH: %s\n", path);
 	count = strlen(path - 5);
 	while(id < count - 1)
 	{
@@ -78,7 +77,6 @@ int find_path(char **env)
 		args = strtok(path, "=");
 		if ((id = strcmp(args, "PATH")) == 0)
 		{
-			printf("PATH: %s\n\n\n\n", path);
 			return(i);
 		}
 		strtok(NULL, "\0");
