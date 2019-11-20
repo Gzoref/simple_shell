@@ -35,7 +35,6 @@ int function_filter(char **commands, char **env)
 	switch (option)
 	{
 	case 0:
-		printf("Got here 3\n");
 		call_exit();
 		break;
 	default:
