@@ -26,11 +26,13 @@ int call_env (char *str);
 
 char **parse_line(char *line);
 
-int function_filter (char **commands);
+int function_filter (char **commands, char **env);
 
 int exec_cmd (char **str, char **env);
 char *read_line(void);
+char *_strcat(char *s1, char *s2);
 
 int _strcmp(char *str1, char *str2);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 #endif
