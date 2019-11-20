@@ -45,6 +45,7 @@ int exec_cmd(char **str, char **env)
 			}
 			path = strtok(NULL, ":");
 		}
+		exit(EXIT_SUCCESS);
 	}
 	else if (pid < 0)
 		perror("hsh");

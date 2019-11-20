@@ -21,7 +21,8 @@ int function_filter(char **commands, char **env)
 	builtin[0] = "exit";
 	builtin[1] = "cd";
 	builtin[2] = "help";
-	builtin[3] = NULL;
+	builtin[3] = "env";
+	builtin[4] = NULL;
 
 	while (builtin[option] != NULL)
 	{
