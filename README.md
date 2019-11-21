@@ -1,6 +1,6 @@
 # Simple Shell
-
-[![Shell Commands](https://i.imgur.com/AXSgkHC.png)
+by Ezra Nobrega & Geoffrey Zoref
+![Shell Commands](https://www.guru99.com/images/ShellScripting.png)
 
 Task: Write a simple UNIX command interpreter.
 
@@ -119,3 +119,20 @@ In this mode, the shell should not print a prompt and should not read from stdin
 
 ## 22. What happens when you type ls -l in the shell
 Write a blog post describing step by step what happens when you type ls -l and hit Enter in a shell. Try to explain every step you know of, going in as much details as you can, give examples and draw diagrams when needed. You should merge your previous knowledge of the shell with the specifics of how it works under the hoods (including syscalls).
+
+
+
+| File name | Functions in file|
+| ------ | ------ |
+| **main.c** |``` main(int argc, char **argv, char **env) ```
+|        |``` void cntl_c_handler(void)```
+| **read_line.c** | ```char *readline(void)``` |
+| **parse.c** | ```char **parse_line(char *line)``` |
+| **filter.c** | ```int function_filter(char **commands, char **env)```  |
+| **built_ins.c** | ```int call_exit(char *args)```  |
+|             | ```int call_cd(char *args)```  |
+|             | ```int call_help(char *args)```  |
+| **call_exec.c** | ```int exec_cmd(char *str, char **env)``` |
+|             | ```int find_path(char **environment)```  |
+
+
