@@ -1,6 +1,5 @@
 #include "shell.h"
 
-
 /**
  * function_filter - Filters built-ins & sends them to appropriate function
  *
@@ -37,7 +36,8 @@ int function_filter(char **commands, char **env)
 	case 0:
 		call_exit(*commands);
 		break;
-		call_cd(*commands);
+	case 1:
+		call_cd(commands);
 		break;
 	default:
 		return (exec_cmd(commands, env));
