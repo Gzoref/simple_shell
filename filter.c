@@ -11,7 +11,6 @@
  * Return: exec_cmd function
  */
 
-
 int function_filter(char **commands, char **env)
 {
 	int option = 0;
@@ -36,7 +35,9 @@ int function_filter(char **commands, char **env)
 	switch (option)
 	{
 	case 0:
-		call_exit();
+		call_exit(*commands);
+		break;
+		call_cd(*commands);
 		break;
 	default:
 		return (exec_cmd(commands, env));
