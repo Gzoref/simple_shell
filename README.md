@@ -122,17 +122,16 @@ Write a blog post describing step by step what happens when you type ls -l and h
 
 
 
+
 | File name | Functions in file|
 | ------ | ------ |
-| **main.c** |``` main(int argc, char **argv, char **env) ```
+| [**main.c**](main.c) |``` main(int argc, char **argv, char **env) ```
 |        |``` void cntl_c_handler(void)```
-| **read_line.c** | ```char *readline(void)``` |
-| **parse.c** | ```char **parse_line(char *line)``` |
-| **filter.c** | ```int function_filter(char **commands, char **env)```  |
-| **built_ins.c** | ```int call_exit(char *args)```  |
+| [**read_line.c**](read_line.c) | ```char *readline(void)``` |
+| [**parse.c**](parse.c) |```char **parse_line(char *line)``` |
+| [**filter.c**](filter.c) | ```int function_filter(char **commands, char **env)```  |
+| [**built_ins.c**](built_ins.c) | ```int call_exit(char *args)```  |
 |             | ```int call_cd(char *args)```  |
 |             | ```int call_help(char *args)```  |
-| **call_exec.c** | ```int exec_cmd(char *str, char **env)``` |
+| [**call_exec.c**](call_exec.c) | ```int exec_cmd(char *str, char **env)``` |
 |             | ```int find_path(char **environment)```  |
-
-
