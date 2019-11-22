@@ -17,7 +17,7 @@ extern char **environ;
 
 int call_cd (char **arg);
 int call_exit (char *arg);
-int call_env (char *arg);
+int call_env (char **arg);
 int call_help(char *args);
 
 char **parse_line(char *line);
