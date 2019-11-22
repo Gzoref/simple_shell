@@ -22,6 +22,9 @@ int function_filter(char **commands, char **env)
 	builtin[3] = "env";
 	builtin[4] = NULL;
 
+	if (commands[0] == NULL)
+		return(1);
+
 	while (builtin[option] != NULL)
 	{
 		if (_strcmp(builtin[option], commands[0]) == 0)
