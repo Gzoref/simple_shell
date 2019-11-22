@@ -121,6 +121,8 @@ In this mode, the shell should not print a prompt and should not read from stdin
 Write a blog post describing step by step what happens when you type ls -l and hit Enter in a shell. Try to explain every step you know of, going in as much details as you can, give examples and draw diagrams when needed. You should merge your previous knowledge of the shell with the specifics of how it works under the hoods (including syscalls).
 
 
+
+
 | File name | Functions in file|
 | ------ | ------ |
 | [**main.c**](main.c) |``` main(int argc, char **argv, char **env) ```
