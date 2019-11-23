@@ -20,6 +20,9 @@ int call_exit (char *args);
 int call_exit_status(char **args);
 int call_env (char **args);
 int call_help(char *args);
+int call_unsetenv(char **env, char **str);
+
+int find_env_var(char **env, char *str);
 
 int _isdigit(char str);
 int _exit_atoi(char *str);
