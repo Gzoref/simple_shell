@@ -11,10 +11,26 @@
 int call_exit(char *args)
 {
 	exit(EXIT_SUCCESS);
-
 	free(args);
 
 	return (1);
+}
+
+int call_exit_status(char **args)
+{
+	int status;
+
+	status = _exit_atoi(args[1]);
+ 
+	switch (status)
+	{
+	case (-1):
+		perror("hsh");
+		break;
+	default:
+		exit(status);
+}
+      	return(1);
 }
 
 
@@ -42,14 +58,42 @@ int call_cd(char **args)
 }
 
 
-/**
- * call_help - function description
- *
- * Return: void
- */
-
-
-int chall_help(char *args)
+int _exit_atoi(char *str)
 {
-	
+	int result = 0, index = 0, int_max = 2147483647;
+
+	/* Is negative */
+	if (str[index] == '-')
+	{
+		return(-1);
+	}
+
+	for (index = 0; str[index] != '\0'; index++)
+	{
+		if (_isdigit(str[index]))
+		{
+			result *= 10 + str[index] + '0';
+		}
+		else
+		{
+			return (-1);
+		}
+	}
+
+	if (result > int_max)
+	{
+		return (-1);
+	}
+
+	else
+		return (result);
+}
+
+int _isdigit(char str)
+{
+	if (str >= '0' && str <= '9')
+	{
+		return (1);
+	}
+	return (0);
 }

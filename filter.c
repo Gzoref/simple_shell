@@ -18,8 +18,8 @@ int function_filter(char **commands, char **env)
 
 	builtin[0] = "exit";
 	builtin[1] = "cd";
-	builtin[2] = "help";
-	builtin[3] = "env";
+	builtin[2] = "env";
+	builtin[3] = "help";
 	builtin[4] = NULL;
 
 	if (commands[0] == NULL)
@@ -37,10 +37,20 @@ int function_filter(char **commands, char **env)
 	switch (option)
 	{
 	case 0:
-		call_exit(*commands);
+		if (commands[1] == NULL)
+		{
+			call_exit(*commands);
+		}
+		else
+		{
+			call_exit_status(commands);
+		}
 		break;
 	case 1:
 		call_cd(commands);
+		break;
+	case 2:
+		call_env(env);
 		break;
 	default:
 		return (exec_cmd(commands, env));
