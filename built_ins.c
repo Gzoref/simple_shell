@@ -21,16 +21,16 @@ int call_exit_status(char **args)
 	int status;
 
 	status = _exit_atoi(args[1]);
- 
-	switch (status)
+
+        if (status == -1)
 	{
-	case (-1):
 		perror("hsh");
-		break;
-	default:
+		return (-1);
+	}
+	else
+	{
 		exit(status);
-}
-      	return(1);
+	}
 }
 
 
@@ -58,6 +58,7 @@ int call_cd(char **args)
 }
 
 
+
 int _exit_atoi(char *str)
 {
 	int result = 0, index = 0, int_max = 2147483647;
@@ -72,7 +73,7 @@ int _exit_atoi(char *str)
 	{
 		if (_isdigit(str[index]))
 		{
-			result *= 10 + str[index] + '0';
+			result = result * 10 + str[index] - '0';
 		}
 		else
 		{
@@ -88,6 +89,7 @@ int _exit_atoi(char *str)
 	else
 		return (result);
 }
+
 
 int _isdigit(char str)
 {
