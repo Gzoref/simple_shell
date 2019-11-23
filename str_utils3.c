@@ -9,8 +9,6 @@
  *  Return: Exit status int or -1 on failure
  */
 
-
-
 int _exit_atoi(char *str)
 {
 	int result = 0, index = 0, int_max = 2147483647;
@@ -42,6 +40,8 @@ int _exit_atoi(char *str)
 		printf("%d\n", result);
 	return (result);
 }
+
+
 
 /**
  *  _isdigit - Finds if char is a digit or not
