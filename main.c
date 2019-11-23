@@ -1,35 +1,28 @@
 #include "shell.h"
 
 /**
- * main - Main funtion, gateway to shell commands
+ * main - Main funtion, gateway to shell commands & prompt loop
  *
- * @argc: Integer
- *
- * @argv: Double pointer arguments
- *
- * @env: Double pointer environment
- *
- * Return: 1 on success
+ * Return: 0 on success
  */
 
-
-int main(int argc, char **argv, char **env)
+int main(void)
 {
 	char *buffer = NULL;
 	char **args;
-	int value = 0;
+	int value = 1;
 
-	do {
-		signal(SIGINT, ctrl_c_handler);
-		write(STDOUT_FILENO, "$ ", 2);
-		buffer = read_line();
-		args = parse_line(buffer);
-		value = function_filter(args, env);
-		free(buffer);
-		free(args);
-	} while (value > 0);
-
-	return (1);
+	while (value)
+	{
+		signal(SIGINT, ctrl_c_handler); /* Stop ctrl ^C from exiting */
+		write(STDOUT_FILENO, "$ ", 2); /* Write $ for shell */
+		buffer = read_line(); /* Reads from command line */
+		args = parse_line(buffer); /* Use strtok to put args in array */
+		value = function_filter(args, environ); /* Tell if builtin */
+		free(buffer); /* Free buffer */
+		free(args); /* Free memory allocated for args */
+	}
+	return (0);
 }
 
 
@@ -38,7 +31,7 @@ int main(int argc, char **argv, char **env)
  *
  * @sig_num: Integer
  *
- *  Return: void
+ * Return: void
  */
 
 void ctrl_c_handler(int sig_num __attribute__((unused)))
