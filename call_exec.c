@@ -3,7 +3,7 @@
 #include <dirent.h>
 #include <errno.h>
 
-int find_path(char **enviorment);
+int find_env_var(char **enviorment, char *str);
 int check_input(char **str, char **env);
 
 int exec_cmd(char **str, char **env)
@@ -20,7 +20,7 @@ int exec_cmd(char **str, char **env)
 	if ((flag = check_input(str, env)) == 1)
 		return(1);
 
-	i = find_path(env);
+	i = find_env_var(env, "PATH");
 	path = strcpy(path, env[i]);
 	count = strlen(path - 5);
 	while(id < count - 1)
@@ -67,7 +67,7 @@ int exec_cmd(char **str, char **env)
 
 
 
-int find_path(char **env)
+int find_env_var(char **env, char *str)
 {
 	char *args;
 	char *path = malloc(sizeof(char) * BUFFERSIZE);
@@ -77,16 +77,18 @@ int find_path(char **env)
 	while (*env)
 	{
 			
-		strcpy(path, env[i]);
+		path = _strdup(env[i]);
 
 		args = strtok(path, "=");
-		if ((id = _strcmp(args, "PATH")) == 0)
+		if ((id = _strcmp(args, str)) == 0)
 		{
+			free(path);
 			return(i);
 		}
 		strtok(NULL, "\0");
 		i++;
 	}
+	free(path);
 	return (0);
 }
 
