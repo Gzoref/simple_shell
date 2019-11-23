@@ -39,17 +39,17 @@ int function_filter(char **commands, char **env)
 		}
 		else
 		{
-			call_exit_status(commands); /* Is  2nd arg after exit */
+			call_exit_status(commands); /* Is 2nd arg after exit */
 		}
 		break;
 	case 1:
 		call_cd(commands); /* cd is typed */
-		[<8;94;28m		break;
+		break;
 	case 2:
 		call_env(env); /* env is typed */
 		break;
 	default:
-		return (exec_cmd(commands, env));
+		return (exec_cmd(commands, env)); /* No builtin found */
 	}
 	return (option);
 }
