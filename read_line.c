@@ -6,7 +6,10 @@ char * read_line(void)
 	size_t bufsize = 0;
 	int i = 0;
 	i = getline(&line, &bufsize, stdin);
-	if (i == -1)
-		call_exit("\n");
+	if (i == EOF)
+	{
+		write(1, "\n", 1);
+		exit(1);
+	}
 	return (line);
 }
