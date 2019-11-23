@@ -42,60 +42,37 @@ int call_exit_status(char **args)
  *  Return: Integer
  */
 
-int call_cd(char **args)
+void call_cd(char **args)
 {
 
-	if (args[1] == NULL)
+	int current = 0, index = 0;
+	char current_directory[BUFFERSIZE];
+
+
+	if (args[1] == NULL) /*  Only type cd with no args after  */
 	{
-		perror("cd");
+		chdir(getenv("HOME"));
 	}
-	else if (chdir(args[1]) != 0)
-		{
-			perror("hsh");
-		}
-
-	return (1);
-}
-
-
-
-int _exit_atoi(char *str)
-{
-	int result = 0, index = 0, int_max = 2147483647;
-
-	/* Is negative */
-	if (str[index] == '-')
+	else if (_strcmp(args[1], "-")  == 0) /*  If first arg after cd is -  */
 	{
-		return(-1);
-	}
-
-	for (index = 0; str[index] != '\0'; index++)
-	{
-		if (_isdigit(str[index]))
+		if (getenv("OLDPWD") == NULL)
 		{
-			result = result * 10 + str[index] - '0';
+			chdir(".");
 		}
 		else
 		{
-			return (-1);
+			chdir(getenv("OLDPWD"));
+			getcwd(current_directory, sizeof(current));
+
+			while (current_directory[index] != '\0')
+			{
+				index++;
+				current++;
+			}
+			current_directory[index] = '\n';
+			write(1, current_directory, current + 1);
 		}
 	}
-
-	if (result > int_max)
-	{
-		return (-1);
-	}
-
 	else
-		return (result);
-}
-
-
-int _isdigit(char str)
-{
-	if (str >= '0' && str <= '9')
-	{
-		return (1);
-	}
-	return (0);
+		chdir(args[1]);
 }

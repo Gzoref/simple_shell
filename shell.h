@@ -15,11 +15,12 @@ extern char **environ;
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int call_cd (char **args);
+void call_cd (char **args);
 int call_exit (char *args);
 int call_exit_status(char **args);
 int call_env (char **args);
 int call_help(char *args);
+
 int _isdigit(char str);
 int _exit_atoi(char *str);
 
