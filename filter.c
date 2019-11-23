@@ -14,16 +14,12 @@ int function_filter(char **commands, char **env)
 {
 	int option = 0;
 
-	char *builtin[5];
+	char *builtin[5] = {"exit", "cd", "env", "help", NULL};
 
-	builtin[0] = "exit";
-	builtin[1] = "cd";
-	builtin[2] = "env";
-	builtin[3] = "help";
-	builtin[4] = NULL;
-
-	if (commands[0] == NULL)
-		return(1);
+	if (commands[0] == NULL) /* If no args at all, continue */
+	{
+		return (1);
+	}
 
 	while (builtin[option] != NULL)
 	{
@@ -36,21 +32,21 @@ int function_filter(char **commands, char **env)
 
 	switch (option)
 	{
-	case 0:
-		if (commands[1] == NULL)
+	case 0: /* Exit */
+		if (commands[1] == NULL) /* Only exit is typed */
 		{
 			call_exit(*commands);
 		}
 		else
 		{
-			call_exit_status(commands);
+			call_exit_status(commands); /* Is  2nd arg after exit */
 		}
 		break;
 	case 1:
-		call_cd(commands);
-		break;
+		call_cd(commands); /* cd is typed */
+		[<8;94;28m		break;
 	case 2:
-		call_env(env);
+		call_env(env); /* env is typed */
 		break;
 	default:
 		return (exec_cmd(commands, env));
