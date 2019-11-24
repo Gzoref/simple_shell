@@ -6,6 +6,7 @@
 
 extern char **environ;
 
+#include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -32,6 +33,7 @@ typedef struct list_s
 	struct list_s *next;
 } list_t;
 
+extern list_t *head;
 
 void call_cd (char **args);
 int call_exit (char *args);
@@ -42,6 +44,7 @@ int call_unsetenv(char **env, char **str);
 int call_setenv(char **env, char **str);
 
 int find_env_var(char **env, char *str);
+char *_getenv(char **env, char *str);
 
 int _isdigit(char str);
 int _exit_atoi(char *str);
@@ -61,5 +64,9 @@ char *_strdup(char *str);
 int _strcmp(char *str1, char *str2);
 int _strlen(char *str);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
+
+list_t *add_node(list_t **head, const char *str);
+void free_list(list_t *head);
 
 #endif
