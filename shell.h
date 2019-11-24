@@ -15,12 +15,31 @@ extern char **environ;
 #include <sys/types.h>
 #include <sys/wait.h>
 
+
+/**
+ * struct list_s - singly linked list
+ * @str: string - (malloc'ed string)
+ * @len: length of the string
+ * @next: points to the next node
+ *
+ * Description: singly linked list node structure
+ * for Holberton project
+ */
+typedef struct list_s
+{
+	char *str;
+	unsigned int len;
+	struct list_s *next;
+} list_t;
+
+
 void call_cd (char **args);
 int call_exit (char *args);
 int call_exit_status(char **args);
 int call_env (char **args);
 int call_help(char *args);
 int call_unsetenv(char **env, char **str);
+int call_setenv(char **env, char **str);
 
 int find_env_var(char **env, char *str);
 
