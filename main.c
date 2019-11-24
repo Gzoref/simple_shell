@@ -16,7 +16,8 @@ int main(void)
 	while (value)
 	{
 		signal(SIGINT, ctrl_c_handler); /* Stop ctrl ^C from exiting */
-		if (isatty(1))
+
+		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2); /* Write $ for shell */
 
 		buffer = read_line(); /* Reads from command line */
