@@ -14,7 +14,7 @@ int function_filter(char **commands, char **env)
 {
 	int option = 0;
 
-	char *builtin[6] = {"exit", "cd", "env", "help", "unsetenv", NULL};
+	char *builtin[7] = {"exit", "cd", "env", "help", "unsetenv", "setenv", NULL};
 
 	if (commands[0] == NULL) /* If no args at all, continue */
 	{
@@ -50,6 +50,9 @@ int function_filter(char **commands, char **env)
 		break;
 	case 4:
 		call_unsetenv(env, commands);
+		break;
+	case 5:
+		call_setenv(env, commands);
 		break;
 	default:
 		return (exec_cmd(commands, env)); /* No builtin found */
