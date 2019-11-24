@@ -11,16 +11,20 @@ int main(void)
 	char *buffer = NULL;
 	char **args;
 	int value = 1;
+	int loop_count = 0;
 
 	while (value)
 	{
 		signal(SIGINT, ctrl_c_handler); /* Stop ctrl ^C from exiting */
-		write(STDOUT_FILENO, "$ ", 2); /* Write $ for shell */
+		if (!isatty(0))
+			write(STDOUT_FILENO, "$ ", 2); /* Write $ for shell */
+
 		buffer = read_line(); /* Reads from command line */
 		args = parse_line(buffer); /* Use strtok to put args in array */
 		value = function_filter(args, environ); /* Tell if builtin */
 		free(buffer); /* Free buffer */
 		free(args); /* Free memory allocated for args */
+		loop_count++;
 	}
 	return (0);
 }
