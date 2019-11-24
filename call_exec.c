@@ -67,29 +67,70 @@ int exec_cmd(char **str, char **env)
 
 
 
-int find_env_var(char **env, char *str)
+char *_getenv(char **env, char *str)
 {
-	char *args;
+	char *args, *copy = malloc(BUFFERSIZE);
 	char *path = malloc(sizeof(char) * BUFFERSIZE);
-	int id = 0;
+	int id = 0, len = 0, len2 = 0;
 	int i = 0;
-	
+
+	add_node(&head, path);
+	add_node(&head, copy);
+	add_node(&head, args);
+
 	while (*env)
 	{
 			
 		path = _strdup(env[i]);
 
 		args = strtok(path, "=");
-		if ((id = _strcmp(args, str)) == 0)
+		if (args != NULL && (id = _strcmp(args, str)) == 0)
 		{
+			path = _strdup(env[i]);
+
+			while(args[++len])
+				;	
+			len2 = len + 1;
+			id = _strlen(path) - len2;
+			i = 0;
+			while(i < id - 1)
+			{
+				copy[i] = path[len2];
+				i++;
+				len2++;
+			}
+			return(copy);
+		}
+		strtok(NULL, "\0");
+		i++;
+	}
+	return(NULL);
+}
+
+int find_env_var(char **env, char *str)
+{
+	char *args;
+	char *path = malloc(sizeof(char) * BUFFERSIZE);
+	int id = 0;
+	int i = 0;
+	while (*env)
+	{
+			
+		path = _strdup(env[i]);
+
+		args = strtok(path, "=");
+		if (args != NULL && (id = _strcmp(args, str)) == 0)
+		{
+			free(args);
 			free(path);
 			return(i);
 		}
 		strtok(NULL, "\0");
 		i++;
 	}
+	free(args);
 	free(path);
-	return (0);
+	return(0);
 }
 
 int check_input(char **str, char **env)
