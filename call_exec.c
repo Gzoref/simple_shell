@@ -40,9 +40,7 @@ int exec_cmd(char **str, char **env)
 			{
 				id = execve(newstr, str, env);
 				if (id == -1)
-				{
 					perror(head);
-				}
 			}
 			free(newstr);
 			path = strtok(NULL, ":");
@@ -101,7 +99,8 @@ char *_getenv(char **env, char *str)
 			free(path);
 			return (copy);
 		}
-		strtok(NULL, "\0");
+		free(path);
+		args = strtok(NULL, "\0");
 		i++;
 	}
 	free(copy);
