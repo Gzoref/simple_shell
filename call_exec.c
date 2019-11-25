@@ -21,7 +21,6 @@ int exec_cmd(char **str, char **env)
 	char *new2 = malloc(sizeof(char) * BUFFERSIZE);
 	char *newp = NULL;
 
-	memset(new2, '\0', BUFFERSIZE);
 	if ((check_input(str, env)) == 1)
 		return (1);
 	if (newstr == NULL || path == NULL || new2 == NULL)
