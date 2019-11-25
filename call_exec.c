@@ -38,6 +38,7 @@ int exec_cmd(char **str, char **env)
 			newstr = _strcat(path, newp);
 			if ((access(newstr, X_OK)) == 0)
 			{
+				free(newp);
 				id = execve(newstr, str, env);
 				if (id == -1)
 					perror(head);
@@ -45,6 +46,8 @@ int exec_cmd(char **str, char **env)
 			free(newstr);
 			path = strtok(NULL, ":");
 		}
+		errno = ENOENT;
+		perror(head);
 		exit(EXIT_SUCCESS);
 	}
 	else if (pid < 0)
@@ -71,8 +74,8 @@ int exec_cmd(char **str, char **env)
  */
 char *_getenv(char **env, char *str)
 {
-	char *args = NULL, *copy = malloc(BUFFERSIZE);
-	char *path = malloc(sizeof(char) * BUFFERSIZE);
+	char *args = NULL, *copy = malloc(sizeof(char *) * BUFFERSIZE);
+	char *path = malloc(sizeof(char *) * BUFFERSIZE);
 	int id = 0, len = 0, len2 = 0;
 	int i = 0;
 
@@ -100,7 +103,6 @@ char *_getenv(char **env, char *str)
 			return (copy);
 		}
 		free(path);
-		args = strtok(NULL, "\0");
 		i++;
 	}
 	free(copy);
@@ -130,7 +132,6 @@ int find_env_var(char **env, char *str)
 			return (i);
 		}
 		free(path);
-		args = strtok(NULL, "\0");
 		i++;
 	}
 	return (0);
