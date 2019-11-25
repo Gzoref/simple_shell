@@ -8,7 +8,7 @@
  *  Return: Integer
  */
 
-int call_exit(char *args)
+int call_exit(char **args)
 {
 	exit(EXIT_SUCCESS);
 	free(args);
