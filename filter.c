@@ -50,7 +50,7 @@ int function_filter(char **commands, char **env)
 		call_env(env); /* env is typed */
 		break;
 	case 3:
-	       WhoAmI();
+		WhoAmI();
 		break;
 	case 4:
 		call_unsetenv(env, commands);
