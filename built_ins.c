@@ -25,7 +25,7 @@ int call_exit_status(char **args)
 
         if (status == -1)
 	{
-		perror("hsh: ");
+		perror(head);
 		return (-1);
 	}
 	else
@@ -88,8 +88,8 @@ int call_cd(char **args)
 	{
 		perror("hsh");
 	}
-	setenv("OLDPWD", _getenv(environ, "PWD"), 1);
-	setenv("PWD", getcwd(prevDir, sizeof(prevDir)), 1);
+	/*setenv("OLDPWD", _getenv(environ, "PWD"), 1);*/
+	/*setenv("PWD", getcwd(prevDir, sizeof(prevDir)), 1);*/
 
 	return (0);
 }

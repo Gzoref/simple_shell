@@ -13,13 +13,13 @@ char **parse_line(char *line)
 {
 	int buffer_size = BUFFERSIZE;
 	int location = 0;
-	char **tokens;
+	char **tokens = NULL;
 	char *token = NULL;
 
 	tokens = malloc(sizeof(char *) * buffer_size);
 	if (!tokens)
 	{
-		perror("hsh");
+		perror(head);
 		exit(EXIT_FAILURE);
 	}
 	token = strtok(line, DELIMINATOR);

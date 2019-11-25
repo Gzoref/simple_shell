@@ -45,8 +45,9 @@ int exec_cmd(char **str, char **env)
 			free(newstr);
 			path = strtok(NULL, ":");
 		}
-		errno = ENOENT;
-		perror(head);
+		write(STDERR_FILENO, head, _strlen(head) + 1);
+		write(STDERR_FILENO, str[0], _strlen(str[0]));
+		write(STDERR_FILENO, ": not found\n", 12);
 		exit(EXIT_SUCCESS);
 	}
 	else if (pid < 0)
