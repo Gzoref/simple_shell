@@ -59,6 +59,8 @@ int exec_cmd(char **str, char **env)
 		do
 		{
 			wpid = waitpid(pid, &id, WUNTRACED);
+			if (wpid == -1)
+				perror(head);
 
 		}
 		while(!WIFSIGNALED(id) && !WIFEXITED(id));
@@ -163,6 +165,8 @@ int check_input(char **str, char **env)
 			do
 			{
 				wpid = waitpid(pid, &id, WUNTRACED);
+				if (wpid == -1)
+					perror(head);
 
 			}
 			while(!WIFSIGNALED(id) && !WIFEXITED(id));

@@ -8,11 +8,16 @@
 
 int call_unsetenv(char **env, char **str)
 {
-	int i = 0, id = 0;
+	int i = 0;
+	if (str == NULL || str[1] == NULL || str[1][0] == '\0')
+	{
+		errno = EINVAL;
+		perror(head);
+		return(1);
+	}
 
 	i = find_env_var(env, str[1]);
 	
-	id = 0;
 	while (env[i] != NULL)
 	{
 		env[i] = env[i + 1];
@@ -45,10 +50,10 @@ int call_setenv(char **env, char **str)
 		
 		new = malloc(1024);
 		copy = malloc(total);
-
+		
 		new = _strcat(str[1], "=");
 		copy = _strcat(new, str[2]);
-		_realloc(env[i], _strlen(env[i]), _strlen(copy));
+		_realloc(env[i], len, _strlen(copy));
 		env[i] = copy;
 	}
 
