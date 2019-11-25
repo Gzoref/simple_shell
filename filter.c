@@ -14,7 +14,8 @@ int function_filter(char **commands, char **env)
 {
 	int option = 0;
 
-	char *builtin[7] = {"exit", "cd", "env", "help", "unsetenv", "setenv", NULL};
+	char *builtin[8] = {"exit", "cd", "env", "holberton", "unsetenv",
+			    "setenv", NULL};
 
 	if (commands[0] == NULL) /* If no args at all, continue */
 	{
@@ -47,6 +48,9 @@ int function_filter(char **commands, char **env)
 		break;
 	case 2:
 		call_env(env); /* env is typed */
+		break;
+	case 3:
+	       WhoAmI();
 		break;
 	case 4:
 		call_unsetenv(env, commands);
