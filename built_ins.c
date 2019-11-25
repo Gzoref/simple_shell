@@ -10,8 +10,9 @@
 
 int call_exit(char **args)
 {
-	exit(EXIT_SUCCESS);
+	free(*args);
 	free(args);
+	exit(EXIT_SUCCESS);
 
 	return (1);
 }
