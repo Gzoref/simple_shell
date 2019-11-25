@@ -14,9 +14,8 @@ int call_env(char **env)
 
 		write(STDOUT_FILENO, copy, len + 1);
 		write(1, "\n", 1);
-		i++;
 		free(copy);
+		i++;
 	}
-	free(copy);
 	return(1);
 }
