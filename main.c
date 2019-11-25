@@ -6,13 +6,13 @@
  * Return: 0 on success
  */
 
+list_t *head = NULL;
 int main(void)
 {
 	char *buffer = NULL;
 	char **args;
-	int value = 1;
+	int value = 1, j = 0;
 	int loop_count = 0;
-
 	while (value)
 	{
 		signal(SIGINT, ctrl_c_handler); /* Stop ctrl ^C from exiting */
@@ -21,10 +21,12 @@ int main(void)
 			write(STDOUT_FILENO, "$ ", 2); /* Write $ for shell */
 
 		buffer = read_line(); /* Reads from command line */
+		add_node(&head, buffer);
 		args = parse_line(buffer); /* Use strtok to put args in array */
+		while(args[++j])
+			add_node(&head, args[j]);
 		value = function_filter(args, environ); /* Tell if builtin */
-		free(buffer); /* Free buffer */
-		free(args); /* Free memory allocated for args */
+		free_list(head);
 		loop_count++;
 	}
 	return (0);
