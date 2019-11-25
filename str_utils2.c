@@ -126,6 +126,7 @@ char *_strcat(char *s1, char *s2)
 		}
 		k++;
 	}
-	temp[k] = '\0';
+
+	temp[k - 1] = '\0';
 	return (temp);
 }
