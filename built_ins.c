@@ -17,9 +17,6 @@ int call_exit(char **args)
 	return (1);
 }
 
-
-
-
 int call_exit_status(char **args)
 {
 	int status;
@@ -51,9 +48,7 @@ int call_cd(char **args)
 	char *targetDir = NULL, *home = NULL;
 	char prevDir[BUFFERSIZE];
 
-	printf("%s\n", home);
 	home = _getenv(environ, "HOME");
-	printf("%s\n", home);
 
 	if (args[1])
 	{
@@ -67,24 +62,21 @@ int call_cd(char **args)
 		else if (_strcmp(args[1],"-"))
 		{
 			targetDir = _getenv(environ, "OLDPWD");
-			printf("%s\n", targetDir);
 		}
 		else
 		{
 			targetDir = args[1];
-			printf("%s\n", targetDir);
 		}
 	}
 	else
 	{
 		targetDir = home;
-		printf("%s\n", targetDir);
 	}
 
 	if (targetDir == home)
 	{
 		chdir(targetDir);
-		printf("%s\n", targetDir);
+
 	}
 	/* F_OK tests if there */
 	/* R_OK grants read permissions */
@@ -94,7 +86,7 @@ int call_cd(char **args)
 	}
 	else
 	{
-			perror("hsh");
+		perror("hsh");
 	}
 	setenv("OLDPWD", _getenv(environ, "PWD"), 1);
 	setenv("PWD", getcwd(prevDir, sizeof(prevDir)), 1);
