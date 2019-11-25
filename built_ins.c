@@ -24,7 +24,7 @@ int call_exit_status(char **args)
 
         if (status == -1)
 	{
-		perror("hsh");
+		perror("hsh: ");
 		return (-1);
 	}
 	else
@@ -42,37 +42,58 @@ int call_exit_status(char **args)
  *  Return: Integer
  */
 
-void call_cd(char **args)
+int call_cd(char **args)
 {
+	char *targetDir = NULL, *home = NULL;
+	char prevDir[BUFFERSIZE];
 
-	int current = 0, index = 0;
-	char current_directory[BUFFERSIZE];
+	printf("%s\n", home);
+	home = _getenv(environ, "HOME");
+	printf("%s\n", home);
 
-
-	if (args[1] == NULL) /*  Only type cd with no args after  */
+	if (args[1])
 	{
-		chdir(getenv("HOME"));
-	}
-	else if (_strcmp(args[1], "-")  == 0) /*  If first arg after cd is -  */
-	{
-		if (getenv("OLDPWD") == NULL)
+		/* For cd ~ go home */
+		if (_strcmp(args[1], "~"))
 		{
-			chdir(".");
+			targetDir = home;
+			printf("%s\n", targetDir);
+		}
+		/* cd - goes to previos directory */
+		else if (_strcmp(args[1],"-"))
+		{
+			targetDir = _getenv(environ, "OLDPWD");
+			printf("%s\n", targetDir);
 		}
 		else
 		{
-			chdir(getenv("OLDPWD"));
-			getcwd(current_directory, sizeof(current));
-
-			while (current_directory[index] != '\0')
-			{
-				index++;
-				current++;
-			}
-			current_directory[index] = '\n';
-			write(1, current_directory, current + 1);
+			targetDir = args[1];
+			printf("%s\n", targetDir);
 		}
 	}
 	else
-		chdir(args[1]);
+	{
+		targetDir = home;
+		printf("%s\n", targetDir);
+	}
+
+	if (targetDir == home)
+	{
+		chdir(targetDir);
+		printf("%s\n", targetDir);
+	}
+	/* F_OK tests if there */
+	/* R_OK grants read permissions */
+	else if (access(targetDir, F_OK | R_OK) == 0)
+	{
+		chdir(targetDir);
+	}
+	else
+	{
+			perror("hsh");
+	}
+	setenv("OLDPWD", _getenv(environ, "PWD"), 1);
+	setenv("PWD", getcwd(prevDir, sizeof(prevDir)), 1);
+
+	return (0);
 }
