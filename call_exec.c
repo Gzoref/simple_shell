@@ -11,42 +11,43 @@ int exec_cmd(char **str, char **env)
 	
 	pid_t pid, wpid;
 	int id = 0, i = 0, c = 5, count = 0, flag = 0;
-	char *newstr = malloc(sizeof(char) * BUFFERSIZE), *path = malloc(sizeof(char) * BUFFERSIZE);
+	char *newstr = malloc(sizeof(char) * BUFFERSIZE);
+	char *path = malloc(sizeof(char) * BUFFERSIZE);
 	char *new2 = malloc(sizeof(char) * BUFFERSIZE);
 	char *newp = NULL;
-	
 	memset(new2, '\0', BUFFERSIZE);
-
 	if ((flag = check_input(str, env)) == 1)
 		return(1);
+	if (newstr == NULL || path == NULL || new2 == NULL)
+		call_exit(NULL);
 
 	i = find_env_var(env, "PATH");
-	path = strcpy(path, env[i]);
-	count = strlen(path - 5);
+	path = _strcpy(path, env[i]); /* changed to be our own function */
+	count = _strlen(path - 5); /* changed to be our own function */
 	while(id < count - 1)
 	{
 		new2[id] = path[c];
 		id++;
 		c++;
 	}
-	
 	newp = _strcat("/", str[0]);
 	pid = fork();
 	if (pid == 0)
 	{
-		strcpy(new2, env[i]);
+		_strcpy(new2, env[i]);
 		path = strtok(new2, ":");
 		while (path)	
 		{	
 			newstr = _strcat(path, newp);
-			if ((id = access(newstr, X_OK)) == 0)
+			if ((access(newstr, X_OK)) == 0)
 			{
 				id = execve(newstr, str, env);
 				if(id == -1)
 				{
-					perror("hsh");
+					perror(head);
 				}
 			}
+			free(newstr);
 			path = strtok(NULL, ":");
 		}
 		exit(EXIT_SUCCESS);
@@ -61,7 +62,10 @@ int exec_cmd(char **str, char **env)
 
 		}
 		while(!WIFSIGNALED(id) && !WIFEXITED(id));
-
+	free(newp);
+	free(newstr);
+	free(path);
+	free(new2);
 	return (1);
 }
 
@@ -69,15 +73,11 @@ int exec_cmd(char **str, char **env)
 
 char *_getenv(char **env, char *str)
 {
-	char *args, *copy = malloc(BUFFERSIZE);
+	char *args = NULL, *copy = malloc(BUFFERSIZE);
 	char *path = malloc(sizeof(char) * BUFFERSIZE);
 	int id = 0, len = 0, len2 = 0;
 	int i = 0;
-
-	add_node(&head, path);
-	add_node(&head, copy);
-	add_node(&head, args);
-
+	
 	while (*env)
 	{
 			
@@ -99,37 +99,39 @@ char *_getenv(char **env, char *str)
 				i++;
 				len2++;
 			}
+			free(path);
 			return(copy);
 		}
 		strtok(NULL, "\0");
 		i++;
 	}
+	free(copy);
+	free(path);
 	return(NULL);
 }
 
 int find_env_var(char **env, char *str)
 {
-	char *args;
+	char *args = NULL;
 	char *path = malloc(sizeof(char) * BUFFERSIZE);
 	int id = 0;
 	int i = 0;
+	
 	while (*env)
 	{
 			
 		path = _strdup(env[i]);
-
 		args = strtok(path, "=");
+
 		if (args != NULL && (id = _strcmp(args, str)) == 0)
 		{
-			free(args);
 			free(path);
 			return(i);
 		}
-		strtok(NULL, "\0");
+		free(path);
+		args = strtok(NULL, "\0");
 		i++;
 	}
-	free(args);
-	free(path);
 	return(0);
 }
 
@@ -138,8 +140,9 @@ int check_input(char **str, char **env)
 	pid_t pid, wpid;
 	int id = 0, i = 0;
 	char *sep = "/";
-	char *copy = _strdup(str[0]);
-
+	char *copy = NULL;
+	copy = _strdup(str[0]);
+	
 	if ((i = access(str[0], R_OK | X_OK)) == 0)
 	{
 		

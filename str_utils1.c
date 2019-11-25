@@ -10,7 +10,7 @@
 
 int _strlen(char *str)
 {
-	int length;
+	int length = 0;
 
 	while (str[length] != '\0')
 	{
@@ -88,7 +88,7 @@ int _strcmp(char *str1, char *str2)
  * Return: char pointer
  */
 
-char *_strdup(char *str)
+char *_strdup(const char *str)
 {
 	unsigned int counter1, counter2;
 	char *strCopy;
@@ -107,7 +107,6 @@ char *_strdup(char *str)
 	}
 
 	strCopy = malloc(sizeof(char) * (counter1 + 1));
-
 	if (strCopy == NULL)
 	{
 		return (NULL);
