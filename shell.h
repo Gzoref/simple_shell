@@ -13,6 +13,7 @@ extern char **environ;
 #include <unistd.h>
 #include <limits.h>
 #include <signal.h>
+#include <fcntl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -33,15 +34,16 @@ typedef struct list_s
 	struct list_s *next;
 } list_t;
 
-extern list_t *head;
+extern char *head;
 
-void call_cd (char **args);
-int call_exit (char *args);
+int call_cd (char **args);
+int call_exit (char **args);
 int call_exit_status(char **args);
 int call_env (char **args);
 int call_help(char *args);
 int call_unsetenv(char **env, char **str);
 int call_setenv(char **env, char **str);
+int WhoAmI(void);
 
 int find_env_var(char **env, char *str);
 char *_getenv(char **env, char *str);
@@ -60,7 +62,7 @@ char *_strcat(char *s1, char *s2);
 void ctrl_c_handler(int sig_num);
 
 int _atoi(char *str);
-char *_strdup(char *str);
+char *_strdup(const char *str);
 int _strcmp(char *str1, char *str2);
 int _strlen(char *str);
 char *_strcpy(char *dest, char *src);

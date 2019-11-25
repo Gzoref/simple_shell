@@ -36,7 +36,7 @@ int function_filter(char **commands, char **env)
 	case 0: /* Exit */
 		if (commands[1] == NULL) /* Only exit is typed */
 		{
-			call_exit(*commands);
+			call_exit(commands);
 		}
 		else
 		{
