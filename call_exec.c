@@ -5,48 +5,46 @@
 
 int find_env_var(char **enviorment, char *str);
 int check_input(char **str, char **env);
-
+char *_getenv(char **env, char *str);
+/**
+ * exec_cmd - Takes in a command to execute
+ * @env: The enviorment
+ * @str: The vectorized array of user input
+ * Return: 1 or 0 depenging on what happens
+ */
 int exec_cmd(char **str, char **env)
 {
-	
 	pid_t pid, wpid;
-	int id = 0, i = 0, c = 5, count = 0, flag = 0;
-	char *newstr = malloc(sizeof(char) * BUFFERSIZE), *path = malloc(sizeof(char) * BUFFERSIZE);
+	int id = 0;
+	char *newstr = malloc(sizeof(char) * BUFFERSIZE);
+	char *path = malloc(sizeof(char) * BUFFERSIZE);
 	char *new2 = malloc(sizeof(char) * BUFFERSIZE);
 	char *newp = NULL;
-	
+
 	memset(new2, '\0', BUFFERSIZE);
+	if ((check_input(str, env)) == 1)
+		return (1);
+	if (newstr == NULL || path == NULL || new2 == NULL)
+		call_exit(NULL);
 
-	if ((flag = check_input(str, env)) == 1)
-		return(1);
-
-	i = find_env_var(env, "PATH");
-	path = strcpy(path, env[i]);
-	count = strlen(path - 5);
-	while(id < count - 1)
-	{
-		new2[id] = path[c];
-		id++;
-		c++;
-	}
-	
+	new2 = _getenv(env, "PATH");
 	newp = _strcat("/", str[0]);
 	pid = fork();
 	if (pid == 0)
 	{
-		strcpy(new2, env[i]);
 		path = strtok(new2, ":");
-		while (path)	
-		{	
+		while (path)
+		{
 			newstr = _strcat(path, newp);
-			if ((id = access(newstr, X_OK)) == 0)
+			if ((access(newstr, X_OK)) == 0)
 			{
 				id = execve(newstr, str, env);
-				if(id == -1)
+				if (id == -1)
 				{
-					perror("hsh");
+					perror(head);
 				}
 			}
+			free(newstr);
 			path = strtok(NULL, ":");
 		}
 		exit(EXIT_SUCCESS);
@@ -54,129 +52,139 @@ int exec_cmd(char **str, char **env)
 	else if (pid < 0)
 		perror("hsh");
 	else
-		
-		do
-		{
+		do {
 			wpid = waitpid(pid, &id, WUNTRACED);
+			if (wpid == -1)
+				perror(head);
 
-		}
-		while(!WIFSIGNALED(id) && !WIFEXITED(id));
-
+		} while (!WIFSIGNALED(id) && !WIFEXITED(id));
+	free(newp);
+	free(newstr);
+	free(path);
+	free(new2);
 	return (1);
 }
 
-
-
+/**
+ * _getenv - Finds the enviroment variable
+ * @env: The enviorment
+ * @str: Variable to find
+ * Return: 1 or 0 depenging on what happens
+ */
 char *_getenv(char **env, char *str)
 {
-	char *args, *copy = malloc(BUFFERSIZE);
+	char *args = NULL, *copy = malloc(BUFFERSIZE);
 	char *path = malloc(sizeof(char) * BUFFERSIZE);
 	int id = 0, len = 0, len2 = 0;
 	int i = 0;
 
-	add_node(&head, path);
-	add_node(&head, copy);
-	add_node(&head, args);
-
 	while (*env)
 	{
-			
 		path = _strdup(env[i]);
 
 		args = strtok(path, "=");
-		if (args != NULL && (id = _strcmp(args, str)) == 0)
+		if (args != NULL && (_strcmp(args, str)) == 0)
 		{
 			path = _strdup(env[i]);
 
-			while(args[++len])
-				;	
+			while (args[++len])
+				;
 			len2 = len + 1;
 			id = _strlen(path) - len2;
 			i = 0;
-			while(i < id - 1)
+			while (i < id)
 			{
 				copy[i] = path[len2];
 				i++;
 				len2++;
 			}
-			return(copy);
+			free(path);
+			return (copy);
 		}
 		strtok(NULL, "\0");
 		i++;
 	}
-	return(NULL);
+	free(copy);
+	free(path);
+	return (NULL);
 }
-
+/**
+ * find_env_var - Finds the enviroment variable
+ * @env: The enviorment
+ * @str: Variable to find
+ * Return: The index of the wanted variable
+ */
 int find_env_var(char **env, char *str)
 {
-	char *args;
+	char *args = NULL;
 	char *path = malloc(sizeof(char) * BUFFERSIZE);
-	int id = 0;
 	int i = 0;
+
 	while (*env)
 	{
-			
 		path = _strdup(env[i]);
-
 		args = strtok(path, "=");
-		if (args != NULL && (id = _strcmp(args, str)) == 0)
+
+		if (args != NULL && (_strcmp(args, str)) == 0)
 		{
-			free(args);
 			free(path);
-			return(i);
+			return (i);
 		}
-		strtok(NULL, "\0");
+		free(path);
+		args = strtok(NULL, "\0");
 		i++;
 	}
-	free(args);
-	free(path);
-	return(0);
+	return (0);
 }
 
+/**
+ * check_input - Checks if the input is already a path
+ * @env: The enviorment
+ * @str: Vectorized array of input
+ * Return: 1 or 0 depenging on what happens
+ */
 int check_input(char **str, char **env)
 {
 	pid_t pid, wpid;
 	int id = 0, i = 0;
 	char *sep = "/";
-	char *copy = _strdup(str[0]);
+	char *copy = NULL;
 
-	if ((i = access(str[0], R_OK | X_OK)) == 0)
+	copy = _strdup(str[0]);
+	if ((access(str[0], R_OK | X_OK)) == 0)
 	{
-		
 		pid = fork();
 		if (pid == 0)
 		{
 			id = execve(str[0], str, env);
-			if(id == -1)
+			if (id == -1)
 			{
-				perror("hsh");
+				perror(head);
 			}
 			exit(EXIT_SUCCESS);
 		}
 		else if (pid < 0)
-			perror("hsh");
+			perror(head);
 		else
-		
-			do
-			{
+			do {
 				wpid = waitpid(pid, &id, WUNTRACED);
-
-			}
-			while(!WIFSIGNALED(id) && !WIFEXITED(id));
+				if (wpid == -1)
+					perror(head);
+			} while (!WIFSIGNALED(id) && !WIFEXITED(id));
 		free(copy);
 		return (1);
 	}
 	else if (copy != NULL)
 	{
 		for (i = 0; copy[i] != '\0'; i++)
-			if(copy[i] == sep[0])
+			if (copy[i] == sep[0])
 			{
 				errno = ENOENT;
-				perror("hsh");
+				perror(head);
 				free(copy);
-				return(1);
+				return (1);
 			}
 	}
 	free(copy);
-	return (0);		
+	return (0);
 }
