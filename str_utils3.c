@@ -37,8 +37,7 @@ int _exit_atoi(char *str)
 		return (-1);
 	}
 	else
-		printf("%d\n", result);
-	return (result);
+		return (result);
 }
 
 
@@ -55,10 +54,8 @@ int _isdigit(char str)
 {
 	if (str >= '0' && str <= '9')
 	{
-		printf("%d\n", str);
 		return (1); /* Success */
 	}
-	printf("%d\n", str);
 	return (-1);
 }
 
