@@ -144,4 +144,42 @@ $ pwd
 Output: /home/simple_shell
 ```
 
+```c
+$ ls
+AUTHORS  WhoAmI.txt  /backups  built_ins.c  easter_egg1.c  env.c  filter.c  local.h memory_utils.c  read_line.c  shell.h  str_utils1.c  str_utils3.c  README.md  a.out       bin_ls.bash  call_exec.c  emacs  file.txt  hsh  main.c  parse.c  setenv.c simple_shell_man  str_utils2.c  testShell.bash
+```
 
+```c
+$ ls -la
+total 264
+drwxr-xr-x 1 root root  4096 Nov 26 11:17 .
+drwxr-xr-x 1 root root  4096 Nov 25 10:55 ..
+drwxr-xr-x 1 root root  4096 Nov 26 11:17 .git
+-rw-r--r-- 1 root root     5 Nov 25 17:01 .gitignore
+-rw-r--r-- 1 root root   154 Nov 25 17:01 AUTHORS
+-rw-r--r-- 1 root root  5883 Nov 26 11:17 README.md
+-rw-r--r-- 1 root root  1075 Nov 25 17:01 WhoAmI.txt
+-rwxr-xr-x 1 root root 49960 Nov 25 19:08 a.out
+drwxr-xr-x 1 root root  4096 Nov 26 10:32 backups
+-rwxr-xr-x 1 root root  3045 Nov 25 19:57 bin_ls.bash
+-rw-r--r-- 1 root root  1298 Nov 26 09:54 built_ins.c
+-rw-r--r-- 1 root root  3523 Nov 26 10:32 call_exec.c
+-rw-r--r-- 1 root root   716 Nov 26 09:54 easter_egg1.c
+-rw-r--r-- 1 root root    13 Nov 19 14:38 emacs
+-rw-r--r-- 1 root root   383 Nov 26 09:54 env.c
+-rw-r--r-- 1 root root  1781 Nov 25 19:01 file.txt
+-rw-r--r-- 1 root root  1087 Nov 26 09:54 filter.c
+-rwxr-xr-x 1 root root 44376 Nov 26 10:33 hsh
+-rw-r--r-- 1 root root   728 Nov 22 11:17 local.h
+-rw-r--r-- 1 root root   970 Nov 26 09:54 main.c
+-rw-r--r-- 1 root root   630 Nov 26 09:54 memory_utils.c
+-rw-r--r-- 1 root root   853 Nov 26 09:54 parse.c
+-rw-r--r-- 1 root root   311 Nov 26 09:54 read_line.c
+-rw-r--r-- 1 root root  1098 Nov 26 09:54 setenv.c
+-rw-r--r-- 1 root root  1609 Nov 26 10:35 shell.h
+-rw-r--r-- 1 root root  4756 Nov 26 10:55 simple_shell_man
+-rw-r--r-- 1 root root  1539 Nov 26 09:54 str_utils1.c
+-rw-r--r-- 1 root root  1681 Nov 26 09:54 str_utils2.c
+-rw-r--r-- 1 root root  1003 Nov 26 09:54 str_utils3.c
+-rwxr-xr-x 1 root root 13317 Nov 25 19:25 testShell.bash
+```
