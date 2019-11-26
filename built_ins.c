@@ -46,7 +46,7 @@ int call_exit_status(char **args)
 int call_cd(char **args)
 {
 	char *targetDir = NULL, *home = NULL;
-	//char prevDir[BUFFERSIZE];
+	/*char prevDir[BUFFERSIZE];*/
 
 	home = _getenv(environ, "HOME");
 
