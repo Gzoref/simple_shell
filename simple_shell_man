@@ -1,0 +1,74 @@
+.Dd 11/25/19          \" DATE
+.Dt hsh(1)     \" Program name and manual section number
+.Os Linux
+.Sh NAME                 \" Section Header - required - don't modify
+.Nm hsh
+.\" Use .Nm macro to designate other names for the documented program.
+.Nd A simple UNIX command interperator (A Shell)
+.Sh SYNOPSIS             \" Section Header - required - don't modify
+.Nm
+: ./hsh
+.Sh DESCRIPTION          \" Section Header - required - don't modify
+.Nm
+is a command line interperator. It reads commands from the user input of the terminal,
+and runs them into the kernel.                      \" Ends the list
+.Pp
+
+.Sh ENVIRONMENT      \" May not be needed
+The enviorment is a set of key = value pairs that the system uses for various functions and system calls.
+These variables store information about the current enviroment, or current session. 
+
+A couple example are:
+.Bl -tag -width "ENV_VAR_1" -indent \" ENV_VAR_1 is width of the string ENV_VAR_1
+.It PATH
+Tells the program where to search for executable files.
+.It HOME
+Stores the current user's home directory so it can be used later.
+.El
+.Pp
+Systems by default can have near a dozen enviorment variables, and users can create their own
+depending on  if a command to do so is available. The enviroment is essential to the essential functions of a shell
+
+.Sh SIGNALS                \" File used or created by the topic of the man page
+Will take an QUIT  to end the program, or just by typing exit. Sending SIGINT will fail to end the
+program since it is ignored.
+
+.Sh EXECUTION
+During execution, the shell functions in the following way. First it will grab the user input, and once it has the user input it will be stored
+in a vecotorized array for later use. Next, the program will filter out a built in command
+versus a command that is stored on the file system. If it finds a built it it is immedietly executed, if it doesn't find a built in, it looks to see if it is a command.
+.Pp
+
+Before looking for a command, the program checks if the user input contains a "/". If it does find
+that character it attempts to run it as a path. If it doesn't work, the program returns an error.
+If the user input does not contain the path, the programs looks in the enviroment variable $PATH.
+It takes the user input, and adds it to the path before checking if it exists. If it
+exists it is executed, and if it is not the program returns and prints an error.
+
+.Sh BUILT-INS
+.Bl -tag -width
+.It ENV
+Prints out all the enviorment variables being used by the program.
+.It EXIT
+Program to quit the shell by sending the exit command
+.It UNSETENV
+Unsets an enviorment variables specificed by the user
+.El
+.Sh EXAMPLES
+After Running hsh
+.Bl -tag - width
+.It pwd 
+(Output current working directory: /home/shell)
+.It ls
+(Output: The file contents of the current directory)
+.It echo
+(Output whatever is after echo: "echo "qwerty" --> qwerty)
+.Sh SEE ALSO
+The actual shell, because it works better then this one, and has no bugs.
+.Sh BUGS
+Sometimes the PATH doesn't always work with every command, most of the time it is successful, but there are occassions where the path will fail.
+Sometimes memory isn't freed from the program, so a leak will occur. Setenv isn't a function that works, though the call is implemented, and cd only works occassionally.
+.Sh AUTHORS
+Geoffory Zoref  <geoffory.zoref@holbertonschool.com>
+.Pp
+Ezra Nobrega <ezra.nobrega@holbertonschool.com>

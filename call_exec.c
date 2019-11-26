@@ -26,8 +26,7 @@ int exec_cmd(char **str, char **env)
 	if (newstr == NULL || path == NULL || new2 == NULL)
 		call_exit(NULL);
 
-	new2 = _getenv(env, "PATH");
-	newp = _strcat("/", str[0]);
+	new2 = _getenv(env, "PATH"), newp = _strcat("/", str[0]);
 	pid = fork();
 	if (pid == 0)
 	{
