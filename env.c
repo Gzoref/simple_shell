@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+ * call_env - Built in function for env
+ *
+ * @env: Double char pointer
+ *
+ * Return: Integer
+ */
 
 int call_env(char **env)
 {
@@ -7,7 +14,7 @@ int call_env(char **env)
 	int len = 0;
 	char *copy = malloc(8192);
 
-	while(env[i] != NULL)
+	while (env[i] != NULL)
 	{
 		len = _strlen(env[i]);
 		copy = _strdup(env[i]);
@@ -17,5 +24,5 @@ int call_env(char **env)
 		free(copy);
 		i++;
 	}
-	return(1);
+	return (1);
 }

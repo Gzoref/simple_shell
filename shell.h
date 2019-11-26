@@ -37,16 +37,17 @@ typedef struct list_s
 extern char *head;
 char *head;
 
-int call_cd (char **args);
-int call_exit (char **args);
+int call_cd(char **args);
+void call_exit(char **args);
 int call_exit_status(char **args);
-int call_env (char **args);
+int call_env(char **args);
 int call_help(char *args);
 int call_unsetenv(char **env, char **str);
 int call_setenv(char **env, char **str);
 int WhoAmI(void);
 
-int find_env_var(char **env, char *str);
+int find_env_var(char **enviorment, char *str);
+int check_input(char **str, char **env);
 char *_getenv(char **env, char *str);
 
 int _isdigit(char str);
@@ -55,9 +56,9 @@ int _exit_atoi(char *str);
 
 char **parse_line(char *line);
 
-int function_filter (char **commands, char **env);
+int function_filter(char **commands, char **env);
 
-int exec_cmd (char **str, char **env);
+int exec_cmd(char **str, char **env);
 char *read_line(void);
 char *_strcat(char *s1, char *s2);
 void ctrl_c_handler(int sig_num);

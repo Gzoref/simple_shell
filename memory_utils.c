@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "shell.h"
+
 /**
  * _realloc - Reallocating space for a memory block
  * @ptr: Pointer passed in
@@ -7,6 +7,7 @@
  * @new_size: New size of the array
  * Return: Never
  */
+
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
 	void *new_pointer;
@@ -17,11 +18,12 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 	if (new_size == 0 && ptr != NULL)
 	{
-		free(ptr); 
+		free(ptr);
 		return (NULL);
 	}
 
 	new_pointer = malloc(new_size);
+
 	if (new_pointer == NULL)
 		return (NULL);
 
@@ -30,6 +32,6 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 		*((char *)new_pointer + i) = *((char *)ptr + i);
 		i++;
 	}
-	free(ptr); 
+	free(ptr);
 	return (new_pointer);
 }

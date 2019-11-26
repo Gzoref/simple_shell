@@ -48,7 +48,7 @@ int  _atoi(char *s)
 		if (s[index] > 47 && s[index] < 58)
 		{
 			while (s[index] > 47 && s[index] < 58)
-			{	
+			{
 				result = result * 10 - (s[index++] - 48);
 				break;
 			}
@@ -73,7 +73,8 @@ int word_counter(char *str)
 
 	for (count1 = 0; str[count1] != '\0'; count1++)
 	{
-		if (str[count1] != ' ' && (str[count1 + 1] == ' ' || str[count1 + 1] == '\0'))
+		if (str[count1] != ' ' && (str[count1 + 1] == ' ' ||
+					   str[count1 + 1] == '\0'))
 		{
 			count2++;
 		}
@@ -82,11 +83,12 @@ int word_counter(char *str)
 }
 
 /**
- * str_concat - Adds two strings together
+ * _strcat - Adds two strings together
  * @s1: First string to add
  * @s2: Second string to add
  * Return: Always temp
  */
+
 char *_strcat(char *s1, char *s2)
 {
 	int i, j, k, size;

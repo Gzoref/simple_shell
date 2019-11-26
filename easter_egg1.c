@@ -1,19 +1,15 @@
 #include "shell.h"
 
 /**
- * create_file - Creates a new file
+ * WhoAmI - It's a seeeecret
  *
- * @filename: Param description
- *
- * @text_content: Param description
- *
- * Return: int
+ * Return: Text fi
  */
 
 int WhoAmI(void)
 {
 	int txt_file, total, read_status;
-	size_t letters = 7483;
+	size_t letters = 1000;
 	char *filename = "WhoAmI.txt";
 	char buffer[BUFFERSIZE];
 
@@ -21,9 +17,13 @@ int WhoAmI(void)
 		return (0);
 	txt_file = open(filename, O_RDONLY);
 	if (txt_file == -1)
+	{
 		return (0);
+	}
+
 	total = 0;
 	read_status = 1;
+
 	while (letters > BUFFERSIZE && read_status != 0)
 	{
 		read_status = read(txt_file, buffer, BUFFERSIZE);
@@ -35,5 +35,6 @@ int WhoAmI(void)
 	write(STDOUT_FILENO, buffer, read_status);
 	total += read_status;
 	close(txt_file);
+
 	return (0);
 }

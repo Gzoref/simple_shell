@@ -28,12 +28,13 @@ char **parse_line(char *line)
 	{
 		tokens[location] = token;
 		token = strtok(NULL, DELIMINATOR);
-		location++;	
+		location++;
 	}
 		if (location >= buffer_size)
 		{
 			buffer_size += BUFFERSIZE;
-			tokens = _realloc(tokens, BUFFERSIZE, buffer_size * sizeof(char *));
+			tokens = _realloc(tokens, BUFFERSIZE,
+					  buffer_size * sizeof(char *));
 
 			if (!tokens)
 			{

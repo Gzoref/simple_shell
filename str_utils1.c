@@ -3,7 +3,7 @@
 /**
  * _strlen - returns the length of a string
  *
- * @s: arg str
+ * @str: arg str
  *
  * Return: String length
  */
@@ -42,8 +42,6 @@ int _putchar(char c)
  * Return: string to stdout
  */
 
-
-
 void _puts(char *str)
 {
 	while (*str != '\0')
@@ -54,15 +52,15 @@ void _puts(char *str)
 	_putchar('\n');
 }
 
+
 /**
  * _strcmp - compare strings
  *
- * @s1: arg char
- * @s2: arg char
+ * @str1: arg char
+ * @str2: arg char
  *
  * Return: string to stdout
  */
-
 
 
 int _strcmp(char *str1, char *str2)
