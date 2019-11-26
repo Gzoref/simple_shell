@@ -6,7 +6,6 @@
  * Return: 0 on success
  */
 
-char *head = NULL;
 int main(int argc __attribute__((unused)), char **argv)
 {
 	char *buffer = NULL; 
@@ -18,20 +17,13 @@ int main(int argc __attribute__((unused)), char **argv)
 	{
 		signal(SIGINT, ctrl_c_handler); /* Stop ctrl ^C from exiting */
 		head = argv[0];
-		head = _strcat(argv[0], ":");
-
+		
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2); /* Write $ for shell */
 
 		buffer = read_line(); /* Reads from command line */
 		args = parse_line(buffer); /* Use strtok to put args in array */
 		value = function_filter(args, environ); /* Tell if builtin */
-		/*while (args[j] != NULL)
-		{
-			if (args[j] != NULL)
-				free(args[j]);
-			j++;
-		}*/
 		free(args);
 		free(buffer);
 		loop_count++;

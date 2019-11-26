@@ -35,6 +35,7 @@ typedef struct list_s
 } list_t;
 
 extern char *head;
+char *head;
 
 int call_cd (char **args);
 int call_exit (char **args);

@@ -10,7 +10,7 @@ char * read_line(void)
 	{
 		if((isatty(STDIN_FILENO)) == 1)
 			write(1, "\n", 1);
-		exit(1);
+		exit(0);
 	}
 	return (line);
 }
