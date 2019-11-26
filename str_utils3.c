@@ -16,7 +16,7 @@ int _exit_atoi(char *str)
 	/* Is negative */
 	if (str[index] == '-')
 	{
-		return (-1);
+		return (1);
 	}
 
 	while (str[index] != '\0')
@@ -27,14 +27,14 @@ int _exit_atoi(char *str)
 		}
 		else
 		{
-			return (-1);
+			return (1);
 		}
 		index++;
 	}
 
 	if (result > int_max)
 	{
-		return (-1);
+		return (1);
 	}
 	else
 		return (result);
@@ -56,7 +56,7 @@ int _isdigit(char str)
 	{
 		return (1); /* Success */
 	}
-	return (-1);
+	return (0);
 }
 
 /**

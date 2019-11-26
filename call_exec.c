@@ -3,23 +3,23 @@
 #include <dirent.h>
 #include <errno.h>
 
-int find_env_var(char **enviorment, char *str);
-int check_input(char **str, char **env);
-char *_getenv(char **env, char *str);
 /**
  * exec_cmd - Takes in a command to execute
+ *
  * @env: The enviorment
- * @str: The vectorized array of user input
- * Return: 1 or 0 depenging on what happens
+ *
+ *  @str: The vectorized array of user input
+ *
+ *Return: 1 or 0 depenging on what happens
  */
+
 int exec_cmd(char **str, char **env)
 {
 	pid_t pid, wpid;
 	int id = 0;
 	char *newstr = malloc(sizeof(char) * BUFFERSIZE);
 	char *path = malloc(sizeof(char) * BUFFERSIZE);
-	char *new2 = malloc(sizeof(char) * BUFFERSIZE);
-	char *newp = NULL;
+	char *new2 = malloc(sizeof(char) * BUFFERSIZE), *newp = NULL;
 
 	if ((check_input(str, env)) == 1)
 		return (1);
@@ -42,8 +42,7 @@ int exec_cmd(char **str, char **env)
 				if (id == -1)
 					perror(head);
 			}
-			free(newstr);
-			path = strtok(NULL, ":");
+			free(newstr), path = strtok(NULL, ":");
 		}
 		write(STDERR_FILENO, head, _strlen(head) + 1);
 		write(STDERR_FILENO, str[0], _strlen(str[0]));
@@ -57,12 +56,8 @@ int exec_cmd(char **str, char **env)
 			wpid = waitpid(pid, &id, WUNTRACED);
 			if (wpid == -1)
 				perror(head);
-
 		} while (!WIFSIGNALED(id) && !WIFEXITED(id));
-	free(newp);
-	free(newstr);
-	free(path);
-	free(new2);
+	free(newp), free(newstr), free(path), free(new2);
 	return (1);
 }
 
@@ -72,6 +67,7 @@ int exec_cmd(char **str, char **env)
  * @str: Variable to find
  * Return: 1 or 0 depenging on what happens
  */
+
 char *_getenv(char **env, char *str)
 {
 	char *args = NULL, *copy = malloc(sizeof(char *) * BUFFERSIZE);
@@ -105,10 +101,10 @@ char *_getenv(char **env, char *str)
 		free(path);
 		i++;
 	}
-	free(copy);
-	free(path);
+	free(copy), free(path);
 	return (NULL);
 }
+
 /**
  * find_env_var - Finds the enviroment variable
  * @env: The enviorment

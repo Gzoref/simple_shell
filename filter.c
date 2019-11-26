@@ -13,35 +13,24 @@
 int function_filter(char **commands, char **env)
 {
 	int option = 0;
-
-	char *builtin[8] = {"exit", "cd", "env", "holberton", "unsetenv",
+	char *builtin[7] = {"exit", "cd", "env", "holberton", "unsetenv",
 			    "setenv", NULL};
 
 	if (commands[0] == NULL) /* If no args at all, continue */
-	{
 		return (1);
-	}
-
 	while (builtin[option] != NULL)
 	{
 		if (_strcmp(builtin[option], commands[0]) == 0)
-		{
 			break;
-		}
 		option++;
 	}
-
 	switch (option)
 	{
 	case 0: /* Exit */
 		if (commands[1] == NULL) /* Only exit is typed */
-		{
 			call_exit(commands);
-		}
 		else
-		{
 			call_exit_status(commands); /* Is 2nd arg after exit */
-		}
 		break;
 	case 1:
 		call_cd(commands); /* cd is typed */

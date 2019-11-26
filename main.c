@@ -3,17 +3,21 @@
 /**
  * main - Main funtion, gateway to shell commands & prompt loop
  *
+ * @argc: Argument count
+ *
+ * @argv: Vectorized args
+ *
  * Return: 0 on success
  */
 
-char *head = NULL;
+
 int main(int argc __attribute__((unused)), char **argv)
 {
-	char *buffer = NULL; 
+	char *buffer = NULL;
 	char **args;
 	int value = 1;
 	int loop_count = 0;
-	
+
 	while (value)
 	{
 		signal(SIGINT, ctrl_c_handler); /* Stop ctrl ^C from exiting */
@@ -26,12 +30,6 @@ int main(int argc __attribute__((unused)), char **argv)
 		buffer = read_line(); /* Reads from command line */
 		args = parse_line(buffer); /* Use strtok to put args in array */
 		value = function_filter(args, environ); /* Tell if builtin */
-		/*while (args[j] != NULL)
-		{
-			if (args[j] != NULL)
-				free(args[j]);
-			j++;
-		}*/
 		free(args);
 		free(buffer);
 		loop_count++;
