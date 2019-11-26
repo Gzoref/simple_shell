@@ -135,3 +135,13 @@ Write a blog post describing step by step what happens when you type ls -l and h
 |             | ```int call_help(char *args)```  |
 | [**call_exec.c**](call_exec.c) | ```int exec_cmd(char *str, char **env)``` |
 |             | ```int find_path(char **environment)```  |
+
+
+## Example
+
+```c
+$ pwd
+Output: /home/simple_shell
+```
+
+
