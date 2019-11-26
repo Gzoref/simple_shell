@@ -34,16 +34,33 @@ Will take an QUIT  to end the program, or just by typing exit. Sending SIGINT wi
 program since it is ignored.
 
 .Sh EXECUTION
-During execution, the shell functions in the following way. First it will grab the user input, and once it has the user input it will be stored
-in a vecotorized array for later use. Next, the program will filter out a built in command
-versus a command that is stored on the file system. If it finds a built it it is immedietly executed, if it doesn't find a built in, it looks to see if it is a command.
+During execution, the shell functions in the following way. First it will grab the user input, and once it has the 
+user input it will be stored in a vecotorized array for later use. Next, the program will filter out a built in command
+versus a command that is stored on the file system. If it finds a built it it is immedietly executed, 
+if it doesn't find a built in, it looks to see if it is a command.
 .Pp
 
 Before looking for a command, the program checks if the user input contains a "/". If it does find
 that character it attempts to run it as a path. If it doesn't work, the program returns an error.
-If the user input does not contain the path, the programs looks in the enviroment variable $PATH.
-It takes the user input, and adds it to the path before checking if it exists. If it
-exists it is executed, and if it is not the program returns and prints an error.
+If the user input does not contain the path, the programs looks in the enviroment variable $PATH. 
+The program doesn't know where to find this varaible, so all the enviroment variables on the system
+are fed into the program so it can search through them to find what it needs. This is necessary for
+commands to both execute without a full path, and to allow certain commands to actually function.
+.Pp
+
+To execute commands without a full path the programs searches for the $PATH varaible, which is a string 
+of directories that the system uses to search for executable files, which is what external system commands are.
+Once the system finds the path, it takes the filtered user input, and adds a slash, and the first part of the user
+input onto the path.
+
+.Pp
+
+Example(ls): /bin ----> /bin/ls
+.Pp
+
+Afterwards, a system call is used to check whether the user calling the command has access to that file, and if the file
+actually exists, and is executable. If it finds that the file is executable, the program signals that the file is there, and
+calls a function in the exec tree of commands in order to run the found file.
 
 .Sh BUILT-INS
 .Bl -tag -width
