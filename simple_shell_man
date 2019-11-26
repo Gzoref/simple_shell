@@ -61,6 +61,23 @@ Example(ls): /bin ----> /bin/ls
 Afterwards, a system call is used to check whether the user calling the command has access to that file, and if the file
 actually exists, and is executable. If it finds that the file is executable, the program signals that the file is there, and
 calls a function in the exec tree of commands in order to run the found file.
+.Pp
+
+.Sh SYSTEM CALLS
+
+.Bl -tag -width
+.It execve
+ Takes in the user input, a path, and the current enviroment and attempts to run the file path given
+.It access
+ Takes in a path and a permissions mode and accesses that file based on the mode
+.It read
+ Reads a line from a file descriptor until it reaches the EOF
+.It fork
+ Creates a child process from the parent process
+.It wait
+ Tells a parents process to wait for a child to end
+.It waitpid
+ Waits for a specific pid given to the call to end
 
 .Sh BUILT-INS
 .Bl -tag -width
