@@ -14,11 +14,11 @@ int exec_cmd(char **str, char **env)
 {
 	pid_t pid, wpid;
 	int id = 0;
-	char *newstr = malloc(sizeof(char) * BUFFERSIZE);
-	char *path = malloc(sizeof(char) * BUFFERSIZE);
+	char *newstr = malloc(8 * BUFFERSIZE), *path = malloc(8 * BUFFERSIZE);
 	char *new2 = malloc(sizeof(char) * BUFFERSIZE), *newp = NULL;
 
-	input_check(str, env, newstr, path, new2);
+	if (input_check(str, env, newstr, path, new2))
+		return (1);
 	new2 = _getenv(env, "PATH"), newp = _strcat("/", str[0]);
 	pid = fork();
 	if (pid == 0)
@@ -31,13 +31,13 @@ int exec_cmd(char **str, char **env)
 			{
 				free(newp);
 				id = execve(newstr, str, env);
-				if (id == -1) perror(head);
+				if (id == -1)
+					perror(head);
 			}
 			free(newstr), path = strtok(NULL, ":");
 		}
 		write(STDERR_FILENO, head, _strlen(head) + 1);
-		write(STDERR_FILENO, str[0], _strlen(str[0]));
-		write(STDERR_FILENO, ": not found\n", 12);
+		write(2, str[0], _strlen(str[0])), write(2, ": not found\n", 12);
 		exit(EXIT_SUCCESS);
 	}
 	else if (pid < 0)
@@ -184,7 +184,8 @@ int check_input(char **str, char **env)
 		else
 			do {
 				wpid = waitpid(pid, &id, WUNTRACED);
-				if (wpid == -1) perror(head);
+				if (wpid == -1)
+					perror(head);
 			} while (!WIFSIGNALED(id) && !WIFEXITED(id));
 		free(copy);
 		return (1);
@@ -195,8 +196,7 @@ int check_input(char **str, char **env)
 			if (copy[i] == sep[0])
 			{
 				errno = ENOENT;
-				perror(head);
-				free(copy);
+				perror(head), free(copy);
 				return (1);
 			}
 	}
