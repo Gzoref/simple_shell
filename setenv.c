@@ -14,7 +14,7 @@ int call_unsetenv(char **env, char **str)
 	if (str == NULL || str[1] == NULL || str[1][0] == '\0')
 	{
 		errno = EINVAL;
-		perror(head);
+		perror("hsh");
 
 		return (1);
 	}

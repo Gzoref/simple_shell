@@ -19,7 +19,7 @@ char **parse_line(char *line)
 	tokens = malloc(sizeof(char *) * buffer_size);
 	if (!tokens)
 	{
-		perror(head);
+		perror("hsh");
 		exit(EXIT_FAILURE);
 	}
 	token = strtok(line, DELIMINATOR);

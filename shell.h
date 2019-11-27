@@ -26,14 +26,16 @@ extern char **environ;
  * Description: singly linked list node structure
  * for Holberton project
  */
-typedef struct list_s {
-  char *str;
-  unsigned int len;
-  struct list_s *next;
+
+typedef struct list_s
+{
+	char *str;
+	unsigned int len;
+	struct list_s *next;
 } list_t;
 
 extern char *head;
-char *head;
+
 
 int call_cd(char **args);
 void call_exit(char **args);

@@ -32,7 +32,7 @@ int call_exit_status(char **args)
 
 	if (status == -1)
 	{
-		perror(head);
+		perror("hsh");
 		return (0);
 	}
 	else
@@ -62,7 +62,6 @@ int call_cd(char **args)
 		if (_strcmp(args[1], "~"))
 		{
 			targetDir = home;
-			printf("%s\n", targetDir);
 		}
 		/* cd - goes to previos directory */
 		else if (_strcmp(args[1], "-"))

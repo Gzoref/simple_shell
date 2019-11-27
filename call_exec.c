@@ -32,11 +32,11 @@ int exec_cmd(char **str, char **env)
 				free(newp);
 				id = execve(newstr, str, env);
 				if (id == -1)
-					perror(head);
+					perror("hsh");
 			}
 			free(newstr), path = strtok(NULL, ":");
 		}
-		write(STDERR_FILENO, head, _strlen(head) + 1);
+		write(STDERR_FILENO, "hsh", _strlen("hsh") + 1);
 		write(2, str[0], _strlen(str[0])), write(2, ": not found\n", 12);
 		exit(EXIT_SUCCESS);
 	}
@@ -46,7 +46,7 @@ int exec_cmd(char **str, char **env)
 		do {
 			wpid = waitpid(pid, &id, WUNTRACED);
 			if (wpid == -1)
-				perror(head);
+				perror("hsh");
 		} while (!WIFSIGNALED(id) && !WIFEXITED(id));
 	free(newp), free(newstr), free(path), free(new2);
 	return (1);
@@ -176,16 +176,16 @@ int check_input(char **str, char **env)
 			id = execve(str[0], str, env);
 			if (id == -1)
 			{
-				perror(head);
+				perror("hsh");
 			}
 			exit(EXIT_SUCCESS);
 		} else if (pid < 0)
-			perror(head);
+			perror("hsh");
 		else
 			do {
 				wpid = waitpid(pid, &id, WUNTRACED);
 				if (wpid == -1)
-					perror(head);
+					perror("hsh");
 			} while (!WIFSIGNALED(id) && !WIFEXITED(id));
 		free(copy);
 		return (1);
@@ -196,7 +196,7 @@ int check_input(char **str, char **env)
 			if (copy[i] == sep[0])
 			{
 				errno = ENOENT;
-				perror(head), free(copy);
+				perror("hsh"), free(copy);
 				return (1);
 			}
 	}

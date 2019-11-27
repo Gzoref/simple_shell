@@ -20,7 +20,6 @@ int main(int argc __attribute__((unused)), char **argv)
 	while (value)
 	{
 		signal(SIGINT, ctrl_c_handler); /* Stop ctrl ^C from exiting */
-		head = argv[0];
 
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2); /* Write $ for shell */
