@@ -3,14 +3,11 @@
 /**
  * main - Main funtion, gateway to shell commands & prompt loop
  *
- * @argc: Argument count
- *
- * @argv: Vectorized args
  *
  * Return: 0 on success
  */
 
-int main(int argc __attribute__((unused)), char **argv)
+int main(void)
 {
 	char *buffer = NULL;
 	char **args;
