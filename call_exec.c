@@ -1,14 +1,11 @@
 #include "shell.h"
-#include <sys/types.h>
-#include <dirent.h>
-#include <errno.h>
 
 /**
  * exec_cmd - Takes in a command to execute
  *
  * @env: The enviorment
  *
- *  @str: The vectorized array of user input
+ * @str: The vectorized array of user input
  *
  *Return: 1 or 0 depenging on what happens
  */
@@ -21,11 +18,7 @@ int exec_cmd(char **str, char **env)
 	char *path = malloc(sizeof(char) * BUFFERSIZE);
 	char *new2 = malloc(sizeof(char) * BUFFERSIZE), *newp = NULL;
 
-	if ((check_input(str, env)) == 1)
-		return (1);
-	if (newstr == NULL || path == NULL || new2 == NULL)
-		call_exit(NULL);
-
+	input_check(str, env, newstr, path, new2);
 	new2 = _getenv(env, "PATH"), newp = _strcat("/", str[0]);
 	pid = fork();
 	if (pid == 0)
@@ -38,8 +31,7 @@ int exec_cmd(char **str, char **env)
 			{
 				free(newp);
 				id = execve(newstr, str, env);
-				if (id == -1)
-					perror(head);
+				if (id == -1) perror(head);
 			}
 			free(newstr), path = strtok(NULL, ":");
 		}
@@ -58,6 +50,36 @@ int exec_cmd(char **str, char **env)
 		} while (!WIFSIGNALED(id) && !WIFEXITED(id));
 	free(newp), free(newstr), free(path), free(new2);
 	return (1);
+}
+
+/**
+ * input_check - Saves space!
+ *
+ * @str: Double pointer char
+ *
+ * @env: Environmental variable
+ *
+ * @newstr: char pointer
+ *
+ * @path: char pointer
+ *
+ * @new2: char pointer
+ *
+ * Return: Integer
+ */
+
+int input_check(char **str, char **env, char *newstr, char *path, char *new2)
+{
+	if ((check_input(str, env)) == 1)
+	{
+		return (1);
+	}
+
+	if (newstr == NULL || path == NULL || new2 == NULL)
+	{
+		call_exit(NULL);
+	}
+	return (0);
 }
 
 /**
@@ -157,14 +179,12 @@ int check_input(char **str, char **env)
 				perror(head);
 			}
 			exit(EXIT_SUCCESS);
-		}
-		else if (pid < 0)
+		} else if (pid < 0)
 			perror(head);
 		else
 			do {
 				wpid = waitpid(pid, &id, WUNTRACED);
-				if (wpid == -1)
-					perror(head);
+				if (wpid == -1) perror(head);
 			} while (!WIFSIGNALED(id) && !WIFEXITED(id));
 		free(copy);
 		return (1);
